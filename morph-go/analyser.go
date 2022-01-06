@@ -8,8 +8,8 @@ import (
 )
 
 type TagSet struct {
-	POS  string
-	Tags []string
+	POS  string   `json:"pos"`
+	Tags []string `json:"tags,omitempty"`
 }
 
 func (ts *TagSet) String() string { return fmt.Sprintf("%s/%s", ts.POS, strings.Join(ts.Tags, "+")) }
@@ -22,8 +22,8 @@ type paradigm struct {
 func (p *paradigm) String() string { return fmt.Sprint(p.endings) }
 
 type Entry struct {
-	Lemma  string
-	TagSet *TagSet
+	Lemma  string  `json:"lemma"`
+	TagSet *TagSet `json:"tagset"`
 }
 
 func (e *Entry) String() string { return fmt.Sprintf("%s[%s]", e.Lemma, e.TagSet) }
@@ -79,7 +79,6 @@ func init() {
 			entries[form] = append(list, &Entry{prefix + paradigm.baseEnding, tagSet})
 		}
 	}
-	fmt.Println(paradigms[6])
 }
 
 func Analyse(form string) ([]*Entry, error) {
