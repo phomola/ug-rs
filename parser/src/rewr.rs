@@ -3,7 +3,7 @@ use std::collections::HashSet;
 use std::fmt;
 use std::rc::Rc;
 
-/// An unary term.
+/// A unary term.
 #[derive(Eq, PartialEq, Clone, Hash)]
 pub struct Term {
     pub head: Rc<str>,
