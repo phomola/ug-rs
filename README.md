@@ -2,7 +2,21 @@
 
 ## Morphology
 
-For English morphology there's a REST server written in Go.
+For English morphology there's a REST API server written in Go.
+
+Example request: `{"input": "input text"}`
+
+Example response:
+```
+{"items":[
+  {"form":"input","entries":[
+    {"lemma":"input","tagset":{"pos":"ADJECTIVE"}},
+    {"lemma":"input","tagset":{"pos":"NOUN","tags":["narr","sg"]}},
+    {"lemma":"input","tagset":{"pos":"VERB","tags":["pp"]}}]},
+  {"form":"text","entries":[
+    {"lemma":"text","tagset":{"pos":"NOUN","tags":["narr","sg"]}},
+    {"lemma":"text","tagset":{"pos":"VERB","tags":["inf"]}}]}]}
+```
 
 ## Parser
 
