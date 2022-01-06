@@ -12,6 +12,8 @@ Example response:
   {"form":"input","entries":[
     {"lemma":"input","tagset":{"pos":"ADJECTIVE"}},
     {"lemma":"input","tagset":{"pos":"NOUN","tags":["narr","sg"]}},
+    {"lemma":"input","tagset":{"pos":"VERB","tags":["inf"]}},
+    {"lemma":"input","tagset":{"pos":"VERB","tags":["pasa"]}},
     {"lemma":"input","tagset":{"pos":"VERB","tags":["pp"]}}]},
   {"form":"text","entries":[
     {"lemma":"text","tagset":{"pos":"NOUN","tags":["narr","sg"]}},
