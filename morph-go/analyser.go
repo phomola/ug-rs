@@ -16,7 +16,7 @@ func (ts *TagSet) String() string { return fmt.Sprintf("%s/%s", ts.POS, strings.
 
 type paradigm struct {
 	baseEnding string
-	endings    map[string]string
+	endings    map[string][]string
 }
 
 func (p *paradigm) String() string { return fmt.Sprint(p.endings) }
@@ -49,11 +49,12 @@ func init() {
 	for _, line := range strings.Split(strings.TrimSpace(paradigmList), "\n") {
 		line := strings.TrimSpace(line)
 		comps := strings.Split(line, "%")[1:]
-		paradigm := &paradigm{endings: make(map[string]string)}
+		paradigm := &paradigm{endings: make(map[string][]string)}
 		for i, comp := range comps {
 			comps := strings.Split(comp, "*")
 			ending := strings.ToLower(comps[0])
-			paradigm.endings[ending] = comps[1]
+			list := paradigm.endings[ending]
+			paradigm.endings[ending] = append(list, comps[1])
 			if i == 0 {
 				paradigm.baseEnding = ending
 			}
@@ -69,14 +70,16 @@ func init() {
 			panic(err)
 		}
 		paradigm := paradigms[index]
-		for ending, key := range paradigm.endings {
-			tagSet, ok := tagSets[key]
-			if !ok {
-				panic("tag set not found: " + key)
+		for ending, keys := range paradigm.endings {
+			for _, key := range keys {
+				tagSet, ok := tagSets[key]
+				if !ok {
+					panic("tag set not found: " + key)
+				}
+				form := prefix + ending
+				list := entries[form]
+				entries[form] = append(list, &Entry{prefix + paradigm.baseEnding, tagSet})
 			}
-			form := prefix + ending
-			list := entries[form]
-			entries[form] = append(list, &Entry{prefix + paradigm.baseEnding, tagSet})
 		}
 	}
 }
