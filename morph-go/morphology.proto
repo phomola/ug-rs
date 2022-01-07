@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "github.com/phomola/ug-rs/morph-go;morphrpc";
+
+service Service {
+    rpc Analyse (AnalyseRequest) returns (AnalyseReply);
+}
+
+message AnalyseRequest {
+    string input = 1;
+}
+
+message AnalyseReply {
+    repeated Item items = 1;
+}
+
+message Item {
+    string form = 1;
+    string error = 2;
+    repeated Entry entries = 3;
+}
+
+message Entry {
+    string lemma = 1;
+    TagSet tagSet = 2;
+}
+
+message TagSet {
+    string pos = 1;
+    repeated string tags = 2;
+}

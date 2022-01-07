@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/phomola/ug-rs/morph-go/morphrpc"
 )
 
 type TagSet struct {
@@ -13,6 +15,10 @@ type TagSet struct {
 }
 
 func (ts *TagSet) String() string { return fmt.Sprintf("%s/%s", ts.POS, strings.Join(ts.Tags, "+")) }
+
+func (ts *TagSet) ToProto() *morphrpc.TagSet {
+	return &morphrpc.TagSet{Pos: ts.POS, Tags: ts.Tags}
+}
 
 type paradigm struct {
 	baseEnding string
@@ -27,6 +33,10 @@ type Entry struct {
 }
 
 func (e *Entry) String() string { return fmt.Sprintf("%s[%s]", e.Lemma, e.TagSet) }
+
+func (e *Entry) ToProto() *morphrpc.Entry {
+	return &morphrpc.Entry{Lemma: e.Lemma, TagSet: e.TagSet.ToProto()}
+}
 
 var (
 	entries = make(map[string][]*Entry)
