@@ -2,7 +2,7 @@
 
 ## Morphology
 
-For English morphology there's a REST API server written in Go.
+For English morphology there's a **REST API** server written in Go.
 
 Example request: `{"input": "input text"}`
 
@@ -19,6 +19,8 @@ Example response:
     {"lemma":"text","tagset":{"pos":"NOUN","tags":["narr","sg"]}},
     {"lemma":"text","tagset":{"pos":"VERB","tags":["inf"]}}]}]}
 ```
+
+There's also a **gRPC service** as an alternative to the REST API (in `morph-go/rpcservice`).
 
 ## Parser
 
