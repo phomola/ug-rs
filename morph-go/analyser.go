@@ -9,13 +9,18 @@ import (
 	"github.com/phomola/ug-rs/morph-go/morphrpc"
 )
 
+// TagSet represents a tag set associated with a morpholexical entry.
 type TagSet struct {
-	POS  string   `json:"pos"`
+	// Part-of-speech
+	POS string `json:"pos"`
+	// Morpholexical tags
 	Tags []string `json:"tags,omitempty"`
 }
 
+// String returns a textual representation of the tag set.
 func (ts *TagSet) String() string { return fmt.Sprintf("%s/%s", ts.POS, strings.Join(ts.Tags, "+")) }
 
+// ToProto returns a Protobuf representation of the tag set.
 func (ts *TagSet) ToProto() *morphrpc.TagSet {
 	return &morphrpc.TagSet{Pos: ts.POS, Tags: ts.Tags}
 }
@@ -27,13 +32,18 @@ type paradigm struct {
 
 func (p *paradigm) String() string { return fmt.Sprint(p.endings) }
 
+// Entry is a morpholexical entry.
 type Entry struct {
-	Lemma  string  `json:"lemma"`
+	// Lemma is the base form of the entry
+	Lemma string `json:"lemma"`
+	// TagSet is the associated tag set
 	TagSet *TagSet `json:"tagset"`
 }
 
+// String returns a textual representation of the entry.
 func (e *Entry) String() string { return fmt.Sprintf("%s[%s]", e.Lemma, e.TagSet) }
 
+// ToProto returns a Protobuf representation of the entry.
 func (e *Entry) ToProto() *morphrpc.Entry {
 	return &morphrpc.Entry{Lemma: e.Lemma, TagSet: e.TagSet.ToProto()}
 }
@@ -94,6 +104,7 @@ func init() {
 	}
 }
 
+// Analyse returns all the morpholexical entries for a word form.
 func Analyse(form string) ([]*Entry, error) {
 	r, ok := entries[form]
 	if !ok {
